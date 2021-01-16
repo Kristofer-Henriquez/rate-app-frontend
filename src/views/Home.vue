@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="Home">
     <h1>{{ message }}</h1>
   </div>
 </template>
@@ -8,6 +8,7 @@
 </style>
 
 <script>
+import axios from "axios";
 export default {
   data: function() {
     return {
