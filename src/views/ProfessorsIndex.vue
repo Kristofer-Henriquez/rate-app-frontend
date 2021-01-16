@@ -3,6 +3,9 @@
     <h1>This is the Index action for professors</h1>
     <div v-for="professor in professors">
       <h2> {{ professor.name }} </h2>
+      <p> {{ professor.school }} </p>
+      <p> {{ professor.title }} </p>
+      <p> {{ professor.department }} </p>
     </div>
   </div>
 </template>
@@ -29,6 +32,6 @@ export default {
         this.professors = response.data;
       });
     },
-  }
+  },
 };
 </script>
