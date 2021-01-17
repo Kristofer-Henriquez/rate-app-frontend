@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Professors from '../views/ProfessorsIndex.vue';
 import ProfessorShow from '../views/ProfessorShow.vue';
+import ProfessorCreate from '../views/ProfessorCreate.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/professors/:id',
     name: 'ProfessorShow',
     component: ProfessorShow
+  },
+  {
+    path: '/professorsNew',
+    name: 'ProfessorCreate',
+    component: ProfessorCreate
   },
   {
     path: '/about',
