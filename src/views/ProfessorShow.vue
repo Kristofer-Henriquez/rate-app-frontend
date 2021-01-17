@@ -6,6 +6,7 @@
       <p> {{ professor.title }} </p>
       <p> {{ professor.department }} </p>
 
+  <a v-bind:href="`/professors/${professor.id}/edit`"> Edit this professor! </a>
 
   <p><button v-on:click="destroyProfessor()"> Delete this Professor </button></p>
   </div>
