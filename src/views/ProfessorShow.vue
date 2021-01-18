@@ -27,7 +27,6 @@ export default {
   data: function() {
     return {
       professor: [],
-      review: [],
     };
   },
   created: function() {
