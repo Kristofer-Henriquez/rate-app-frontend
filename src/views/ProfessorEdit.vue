@@ -2,27 +2,27 @@
   <div class="professor-edit">
     <form v-on:submit.prevent="submit()">
       <h1>Edit this professor!</h1>
-     
+
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
       <div class="form-group">
-        <label>Name:</label> 
-        <input type="text" class="form-control" v-model="professor.name">
+        <label>Name:</label>
+        <input type="text" class="form-control" v-model="professor.name" />
       </div>
       <div class="form-group">
-        <label>School:</label> 
-        <input type="text" class="form-control" v-model="professor.school">
+        <label>School:</label>
+        <input type="text" class="form-control" v-model="professor.school" />
       </div>
       <div class="form-group">
         <label>Title:</label>
-        <input type="text" class="form-control" v-model="professor.title">
+        <input type="text" class="form-control" v-model="professor.title" />
       </div>
       <div class="form-group">
         <label>Department:</label>
-        <input type="text" class="form-control" v-model="professor.department">
+        <input type="text" class="form-control" v-model="professor.department" />
       </div>
-      <input type="submit" class="btn btn-primary" value="Submit">
+      <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
   data: function() {
     return {
       errors: [],
-      professor: {}
+      professor: {},
     };
   },
   Created: function() {
@@ -52,7 +52,7 @@ export default {
         name: this.professor.name,
         school: this.professor.school,
         title: this.professor.title,
-        department: this.professor.department
+        department: this.professor.department,
       };
       axios
         .put(`/professors/${this.$route.params.id}`, params)
