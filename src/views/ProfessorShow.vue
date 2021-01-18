@@ -14,6 +14,7 @@
       <p>{{ review.rating }}</p>
       <p>{{ review.text }}</p>
     </div>
+    <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
   </div>
 </template>
 
@@ -26,9 +27,6 @@ export default {
   data: function() {
     return {
       professor: [],
-      review: [
-        // rating: "",
-      ],
     };
   },
   created: function() {
@@ -48,23 +46,6 @@ export default {
         console.log(response.data);
         this.$router.push("/professors");
       });
-    },
-    createReview: function() {
-      var params = {
-        professors_id: this.professor.id,
-        name: this.newReviewrating,
-        title: this.newReviewText,
-      };
-      axios
-        .post("/reviews/", params)
-        .then(response => {
-          console.log(response.data);
-          this.$router.push(`/professors/${this.$route.params.id}`);
-        })
-        .catch(error => {
-          console.log("photos create error", error.response);
-          this.errors = error.response.data.errors;
-        });
     },
   },
 };
