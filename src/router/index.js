@@ -26,7 +26,7 @@ const routes = [
   },
   {
     path: '/professors/:id/edit',
-    name: 'ProfessorEdit',
+    name: 'Professor-edit',
     component: ProfessorEdit
   },
   {
