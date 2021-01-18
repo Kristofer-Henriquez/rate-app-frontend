@@ -2,9 +2,14 @@
   <div class="professor-edit">
     <form v-on:submit.prevent="submit()">
       <h1>Edit this professor!</h1>
+
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
+      <div class="form-group">
+        <label>Name:</label>
+        <input type="text" class="form-control" v-model="professor.name" />
+      </div>
       <div class="form-group">
         <label>School:</label>
         <input type="text" class="form-control" v-model="professor.school" />
@@ -29,12 +34,22 @@ export default {
   data: function() {
     return {
       errors: [],
-      professor: [],
+      professor: {},
     };
   },
+  Created: function() {
+    this.showProfessor();
+  },
   methods: {
+    showProfessor: function() {
+      axios.get("/professors/" + this.$route.params.id).then(response => {
+        console.log(response.data);
+        this.professor = response.data;
+      });
+    },
     submit: function() {
       var params = {
+        name: this.professor.name,
         school: this.professor.school,
         title: this.professor.title,
         department: this.professor.department,
@@ -48,17 +63,6 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
-    showProfessor: function() {
-      console.log("individual professor");
-
-      axios.get("/professors/" + this.$route.params.id).then(response => {
-        console.log(response.data);
-        this.professor = response.data;
-      });
-    },
-  },
-  Created: function() {
-    this.showProfessor();
   },
 };
 </script>
