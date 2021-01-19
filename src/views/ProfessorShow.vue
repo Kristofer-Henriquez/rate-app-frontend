@@ -13,6 +13,11 @@
     <div v-for="review in professor.reviews">
       <p>{{ review.rating }}</p>
       <p>{{ review.text }}</p>
+
+      <a v-bind:href="`/reviews/${review.id}/edit`">Edit this review!</a>
+
+    <p><button v-on:click="destroyReview(review.id)">Delete this review</button></p>
+
     </div>
     <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
   </div>
@@ -26,7 +31,7 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      professor: [],
+      professor: []
     };
   },
   created: function() {
@@ -45,6 +50,31 @@ export default {
       axios.delete(`/professors/${this.$route.params.id}`).then(response => {
         console.log(response.data);
         this.$router.push("/professors");
+      });
+    },
+    createReview: function() {
+      var params = {
+        professors_id: this.professor.id,
+        rating: this.newReviewrating,
+        text: this.newReviewText,
+      };
+      axios
+        .post("/reviews/", params)
+        .then(response => {
+          console.log(response.data);
+          this.$router.push(`/professors/${this.$route.params.id}`);
+        })
+        .catch(error => {
+          console.log("photos create error", error.response);
+          this.errors = error.response.data.errors;
+        });
+    },
+    destroyReview: function(review) {
+      console.log("deleting this review");
+
+      axios.delete(`/reviews/${review}`).then(response => {
+        console.log(response.data);
+        location.reload();
       });
     },
   },
