@@ -13,6 +13,11 @@
     <div v-for="review in professor.reviews">
       <p>{{ review.rating }}</p>
       <p>{{ review.text }}</p>
+
+      <a v-bind:href="`/reviews/${review.id}/edit`">Edit this review!</a>
+
+    <p><button v-on:click="destroyReview(review.id)">Delete this review</button></p>
+
     </div>
   </div>
 </template>
@@ -25,10 +30,7 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      professor: [],
-      review: [
-        // rating: "",
-      ],
+      professor: []
     };
   },
   created: function() {
@@ -52,8 +54,8 @@ export default {
     createReview: function() {
       var params = {
         professors_id: this.professor.id,
-        name: this.newReviewrating,
-        title: this.newReviewText,
+        rating: this.newReviewrating,
+        text: this.newReviewText,
       };
       axios
         .post("/reviews/", params)
@@ -65,6 +67,14 @@ export default {
           console.log("photos create error", error.response);
           this.errors = error.response.data.errors;
         });
+    },
+    destroyReview: function(review) {
+      console.log("deleting this review");
+
+      axios.delete(`/reviews/${review}`).then(response => {
+        console.log(response.data);
+        location.reload();
+      });
     },
   },
 };
