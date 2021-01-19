@@ -19,6 +19,7 @@
     <p><button v-on:click="destroyReview(review.id)">Delete this review</button></p>
 
     </div>
+    <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
   </div>
 </template>
 
