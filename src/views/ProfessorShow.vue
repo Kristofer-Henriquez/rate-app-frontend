@@ -14,10 +14,9 @@
       <p>{{ review.rating }}</p>
       <p>{{ review.text }}</p>
 
-      <a v-bind:href="`/reviews/${review.id}/edit`">Edit this review!</a>
+      <a v-bind:href="`/reviewEdit/${review.id}`">Edit this review!</a>
 
-    <p><button v-on:click="destroyReview(review.id)">Delete this review</button></p>
-
+      <p><button v-on:click="destroyReview(review.id)">Delete this review</button></p>
     </div>
     <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
   </div>
@@ -31,7 +30,7 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      professor: []
+      professor: [],
     };
   },
   created: function() {
