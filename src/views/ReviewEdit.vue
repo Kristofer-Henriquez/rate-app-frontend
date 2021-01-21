@@ -40,6 +40,7 @@ export default {
   methods: {
     submit: function() {
       var params = {
+        professors_id: this.reviews.professors_id,
         rating: this.reviews.rating,
         text: this.reviews.text,
       };
