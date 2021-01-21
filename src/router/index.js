@@ -6,6 +6,7 @@ import ProfessorShow from '../views/ProfessorShow.vue';
 import ProfessorEdit from '../views/ProfessorEdit.vue';
 import ProfessorCreate from '../views/ProfessorCreate.vue';
 import ReviewCreate from '../views/ReviewCreate.vue';
+import ReviewEdit from '../views/ReviewEdit.vue';
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/professors/:id/reviewcreate',
     name: 'ReviewCreate',
     component: ReviewCreate,
+  },
+  {
+    path: '/reviewEdit/:id',
+    name: 'ReviewEdit',
+    component: ReviewEdit,
   },
   {
     path: '/about',

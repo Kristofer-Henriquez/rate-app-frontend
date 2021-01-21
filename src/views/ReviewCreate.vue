@@ -9,8 +9,10 @@
         rating:
         <input type="text" v-model="newReviewRating" />
       </div>
-      text:
-      <input type="text" v-model="newReviewText" />
+      <div>
+        text:
+        <input type="text" v-model="newReviewText" />
+      </div>
       <input type="submit" value="Create" />
     </form>
   </div>
