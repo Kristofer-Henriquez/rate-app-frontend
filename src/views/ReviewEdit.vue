@@ -18,7 +18,7 @@
       </div>
       <div class="form-group">
         <label>text:</label>
-        <input type="text" class="form-control" v-model="reviews.title" />
+        <input type="text" class="form-control" v-model="reviews.text" />
       </div>
       <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
