@@ -7,11 +7,6 @@
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
 
-      <!-- <h1>{{ professor.name }}</h1> -->
-      <div class="form-group">
-        <label>Professor:</label>
-        <input type="text" class="form-control" v-model="reviews.professors_id" />
-      </div>
       <div class="form-group">
         <label>rating:</label>
         <input type="text" class="form-control" v-model="reviews.rating" />
