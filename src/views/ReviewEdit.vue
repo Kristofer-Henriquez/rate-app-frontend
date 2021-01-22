@@ -11,10 +11,12 @@
         <label>rating:</label>
         <input type="text" class="form-control" v-model="reviews.rating" />
       </div>
+
       <div class="form-group">
         <label>text:</label>
         <input type="text" class="form-control" v-model="reviews.text" />
       </div>
+
       <input type="submit" class="btn btn-primary" value="Submit" />
     </form>
   </div>
@@ -46,7 +48,7 @@ export default {
       axios
         .put(`/reviews/${this.$route.params.id}`, params)
         .then(response => {
-          this.$router.push("/reviews");
+          this.$router.push(`/professors/${this.reviews.professors_id}`);
         })
         .catch(error => {
           this.errors = error.response.data.errors;
