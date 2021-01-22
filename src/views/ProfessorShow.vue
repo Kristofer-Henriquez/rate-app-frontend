@@ -1,7 +1,8 @@
 <template>
-  <div class="Professors-Show">
+  <div v-if="professor" class="Professors-Show">
     <h1>This is the Show action for professors</h1>
     <h2>{{ professor.name }}</h2>
+    <h1> {{ averageRating(professor.reviews) }} </h1>
     <p>{{ professor.school }}</p>
     <p>{{ professor.title }}</p>
     <p>{{ professor.department }}</p>
@@ -30,11 +31,23 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      professor: [],
+      professor: null,
     };
   },
   created: function() {
     this.showProfessor();
+  },
+  mounted () {
+    // console.log("mounted", this.professor);
+    // // mapping each item of professor to merge averageRating calculated
+    // this.professor = this.professor.map(professor => {
+    //   // ratings summation
+    //   const totalRatings = this.professor.reviews.reduce((acc, { rating }) => acc += Number(rating), 0);
+    //   console.log(totalRatings);
+    //   const averageRating = totalRatings / this.professor.reviews.length;
+    //   // returning the merge of the current this.professor with averageRating
+    //   return {...this.professor, averageRating};
+    // });
   },
   methods: {
     showProfessor: function() {
@@ -76,6 +89,12 @@ export default {
         location.reload();
       });
     },
+    averageRating: function(reviews) {
+      const totalRatings = reviews.reduce((acc, { rating }) => acc += Number(rating), 0);
+      console.log(totalRatings);
+      const averageRating = totalRatings / this.professor.reviews.length;
+      return averageRating;
+    }
   },
 };
 </script>
