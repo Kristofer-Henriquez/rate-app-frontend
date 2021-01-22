@@ -37,18 +37,6 @@ export default {
   created: function() {
     this.showProfessor();
   },
-  mounted () {
-    // console.log("mounted", this.professor);
-    // // mapping each item of professor to merge averageRating calculated
-    // this.professor = this.professor.map(professor => {
-    //   // ratings summation
-    //   const totalRatings = this.professor.reviews.reduce((acc, { rating }) => acc += Number(rating), 0);
-    //   console.log(totalRatings);
-    //   const averageRating = totalRatings / this.professor.reviews.length;
-    //   // returning the merge of the current this.professor with averageRating
-    //   return {...this.professor, averageRating};
-    // });
-  },
   methods: {
     showProfessor: function() {
       axios.get("/professors/" + this.$route.params.id).then(response => {
