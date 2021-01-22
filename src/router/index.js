@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 import Professors from '../views/ProfessorsIndex.vue';
 import ProfessorShow from '../views/ProfessorShow.vue';
 import ProfessorEdit from '../views/ProfessorEdit.vue';
@@ -11,11 +10,6 @@ import ReviewEdit from '../views/ReviewEdit.vue';
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
   {
     path: '/professors',
     name: 'Professors',
@@ -45,11 +39,6 @@ const routes = [
     path: '/reviewEdit/:id',
     name: 'ReviewEdit',
     component: ReviewEdit,
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
   }
 ];
 

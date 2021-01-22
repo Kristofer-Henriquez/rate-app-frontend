@@ -6,21 +6,19 @@
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-
-      <!-- <h1>{{ professor.name }}</h1> -->
-      <div class="form-group">
-        <label>Professor:</label>
-        <input type="text" class="form-control" v-model="reviews.professors_id" />
-      </div>
+      
       <div class="form-group">
         <label>rating:</label>
         <input type="text" class="form-control" v-model="reviews.rating" />
       </div>
+
       <div class="form-group">
         <label>text:</label>
         <input type="text" class="form-control" v-model="reviews.text" />
       </div>
+
       <input type="submit" class="btn btn-primary" value="Submit" />
+
     </form>
   </div>
 </template>
@@ -32,7 +30,7 @@ export default {
   data: function() {
     return {
       errors: [],
-      reviews: {},
+      reviews: {}
     };
   },
   mounted() {
@@ -51,12 +49,12 @@ export default {
       axios
         .put(`/reviews/${this.$route.params.id}`, params)
         .then(response => {
-          this.$router.push("/reviews");
+          this.$router.push(`/professors/${this.reviews.professors_id}`);
         })
         .catch(error => {
           this.errors = error.response.data.errors;
         });
     },
-  },
+  }
 };
 </script>
