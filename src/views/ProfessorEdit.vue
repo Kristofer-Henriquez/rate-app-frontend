@@ -6,10 +6,9 @@
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-      <div class="form-group">
-        <label>Name:</label>
-        <input type="text" class="form-control" v-model="professor.name" />
-      </div>
+      
+      <h1> {{ professor.name }} </h1>
+
       <div class="form-group">
         <label>School:</label>
         <input type="text" class="form-control" v-model="professor.school" />
@@ -37,16 +36,13 @@ export default {
       professor: {},
     };
   },
-  Created: function() {
-    this.showProfessor();
+  mounted() {
+    axios.get("/professors/" + this.$route.params.id).then(response => {
+      console.log(response.data);
+      this.professor = response.data;
+    });
   },
   methods: {
-    showProfessor: function() {
-      axios.get("/professors/" + this.$route.params.id).then(response => {
-        console.log(response.data);
-        this.professor = response.data;
-      });
-    },
     submit: function() {
       var params = {
         name: this.professor.name,
@@ -57,7 +53,7 @@ export default {
       axios
         .put(`/professors/${this.$route.params.id}`, params)
         .then(response => {
-          this.$router.push("/professors");
+          this.$router.push(`/professors/${this.professor.id}`);
         })
         .catch(error => {
           this.errors = error.response.data.errors;
