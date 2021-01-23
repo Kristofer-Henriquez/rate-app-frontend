@@ -2,7 +2,7 @@
   <div v-if="professor" class="Professors-Show">
     <h1>This is the Show action for professors</h1>
     <h2>{{ professor.name }}</h2>
-    <h1>{{ averageRating(professor.reviews) }}</h1>
+    <h1>{{ averageRating(professor.reviews) | formatNumber }}</h1>
     <p>{{ professor.school }}</p>
     <p>{{ professor.title }}</p>
     <p>{{ professor.department }}</p>
@@ -77,6 +77,11 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
+var numeral = require("numeral");
+Vue.filter("formatNumber", function(value) {
+  return numeral(value).format("0.0");
+});
 
 export default {
   data: function() {
@@ -155,7 +160,6 @@ export default {
     },
     averageRating: function(reviews) {
       const totalRatings = reviews.reduce((acc, { rating }) => (acc += Number(rating)), 0);
-      console.log(totalRatings);
       const averageRating = totalRatings / this.professor.reviews.length;
       return averageRating;
     },
