@@ -2,12 +2,16 @@
   <div v-if="professor" class="Professors-Show">
     <h1>This is the Show action for professors</h1>
     <h2>{{ professor.name }}</h2>
-    <h1> {{ averageRating(professor.reviews) }} </h1>
+    <h1>{{ averageRating(professor.reviews) }}</h1>
     <p>{{ professor.school }}</p>
     <p>{{ professor.title }}</p>
     <p>{{ professor.department }}</p>
 
     <a v-bind:href="`/professors/${professor.id}/edit`">Edit this professor!</a>
+
+    <div>
+      <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
+    </div>
 
     <p><button v-on:click="destroyProfessor()">Delete this Professor</button></p>
 
@@ -15,11 +19,57 @@
       <p>{{ review.rating }}</p>
       <p>{{ review.text }}</p>
 
-      <a v-bind:href="`/reviewEdit/${review.id}`">Edit this review!</a>
-
-      <p><button v-on:click="destroyReview(review.id)">Delete this review</button></p>
+      <b-button v-b-modal.modal-1 v-on:click="selectedReview = review">Edit review</b-button>
     </div>
-    <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
+
+    <div>
+      <b-modal id="modal-1" title="BootstrapVue">
+        <template #modal-header="">
+          <h1>Edit this Review!</h1>
+        </template>
+
+        <template #default="">
+          <div>
+            <form v-on:submit.prevent="submit()">
+              <ul>
+                <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              </ul>
+
+              <div class="form-group">
+                <label>rating:</label>
+                <input type="text" class="form-control" v-model="selectedReview.rating" />
+              </div>
+
+              <div class="form-group">
+                <b-form-textarea
+                  id="textarea"
+                  v-model="selectedReview.text"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"
+                ></b-form-textarea>
+              </div>
+            </form>
+          </div>
+        </template>
+
+        <template #modal-footer="{ ok, cancel, hide }">
+          <div>
+            <b-button size="sm" variant="success" @click="ok(submit())">
+              OK
+            </b-button>
+
+            <b-button size="sm" @click="cancel()">
+              Cancel
+            </b-button>
+
+            <b-button size="sm" @click="hide(destroyReview(selectedReview.id))" variant="danger">
+              delete
+            </b-button>
+          </div>
+        </template>
+      </b-modal>
+    </div>
   </div>
 </template>
 
@@ -31,13 +81,39 @@ import axios from "axios";
 export default {
   data: function() {
     return {
+      errors: "",
       professor: null,
+      text: "",
+      reviews: {},
+      selectedReview: {},
     };
   },
   created: function() {
     this.showProfessor();
   },
+  mounted() {
+    axios.get("/reviews/" + this.$route.params.id).then(response => {
+      console.log(response.data);
+      this.reviews = response.data;
+    });
+  },
   methods: {
+    submit: function() {
+      var params = {
+        professors_id: this.reviews.professors_id,
+        rating: this.reviews.rating,
+        text: this.reviews.text,
+      };
+      axios
+        .put(`/reviews/${this.$route.params.id}`, params)
+        .then(response => {
+          console.log("Review edited", response);
+          // this.$router.push(`/professors/${this.reviews.professors_id}`);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
+    },
     showProfessor: function() {
       axios.get("/professors/" + this.$route.params.id).then(response => {
         console.log("professor show", response);
@@ -78,11 +154,11 @@ export default {
       });
     },
     averageRating: function(reviews) {
-      const totalRatings = reviews.reduce((acc, { rating }) => acc += Number(rating), 0);
+      const totalRatings = reviews.reduce((acc, { rating }) => (acc += Number(rating)), 0);
       console.log(totalRatings);
       const averageRating = totalRatings / this.professor.reviews.length;
       return averageRating;
-    }
+    },
   },
 };
 </script>
