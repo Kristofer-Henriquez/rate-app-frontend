@@ -6,7 +6,7 @@
       <ul>
         <li class="text-danger" v-for="error in errors">{{ error }}</li>
       </ul>
-      
+
       <div class="form-group">
         <label>rating:</label>
         <input type="text" class="form-control" v-model="reviews.rating" />
@@ -18,7 +18,6 @@
       </div>
 
       <input type="submit" class="btn btn-primary" value="Submit" />
-
     </form>
   </div>
 </template>
@@ -30,7 +29,7 @@ export default {
   data: function() {
     return {
       errors: [],
-      reviews: {}
+      reviews: {},
     };
   },
   mounted() {
@@ -55,6 +54,6 @@ export default {
           this.errors = error.response.data.errors;
         });
     },
-  }
+  },
 };
 </script>
