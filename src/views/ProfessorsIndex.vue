@@ -6,10 +6,11 @@
         <div class="card">
           <div class="card-body">
             <h2>{{ professor.name }}</h2>
+            <h3> {{ professor.avg | formatNumber}} </h3>
             <p>{{ professor.school }}</p>
             <p>{{ professor.title }}</p>
             <p>{{ professor.department }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <a v-bind:href="`/professors/${professor.id}`" class="btn btn-primary">Checkout this professor!</a>
           </div>
         </div>
       </div>
@@ -21,6 +22,11 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
+var numeral = require("numeral");
+Vue.filter("formatNumber", function (value) {
+  return numeral(value).format("0.0");
+});
 
 export default {
   data: function() {
