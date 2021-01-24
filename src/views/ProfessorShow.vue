@@ -30,7 +30,7 @@
 
         <template #default="">
           <div>
-            <form v-on:submit.prevent="submit()">
+            <b-form v-on:submit.prevent="submit()">
               <ul>
                 <li class="text-danger" v-for="error in errors">{{ error }}</li>
               </ul>
@@ -49,13 +49,13 @@
                   max-rows="6"
                 ></b-form-textarea>
               </div>
-            </form>
+            </b-form>
           </div>
         </template>
 
         <template #modal-footer="{ ok, cancel, hide }">
           <div>
-            <b-button size="sm" variant="success" @click="ok(submit(selectedReview.id))">
+            <b-button size="sm" variant="primary" @click="ok(submit(selectedReview.id))">
               OK
             </b-button>
 
