@@ -55,7 +55,7 @@
 
         <template #modal-footer="{ ok, cancel, hide }">
           <div>
-            <b-button size="sm" variant="success" @click="ok(submit())">
+            <b-button size="sm" variant="success" @click="ok(submit(selectedReview.id))">
               OK
             </b-button>
 
@@ -77,6 +77,8 @@
 
 <script>
 import axios from "axios";
+
+// Numeral
 import Vue from "vue";
 var numeral = require("numeral");
 Vue.filter("formatNumber", function(value) {
@@ -96,21 +98,15 @@ export default {
   created: function() {
     this.showProfessor();
   },
-  mounted() {
-    axios.get("/reviews/" + this.$route.params.id).then(response => {
-      console.log(response.data);
-      this.reviews = response.data;
-    });
-  },
   methods: {
-    submit: function() {
+    submit: function(review) {
       var params = {
-        professors_id: this.reviews.professors_id,
-        rating: this.reviews.rating,
-        text: this.reviews.text,
+        professors_id: this.selectedReview.professors_id,
+        rating: this.selectedReview.rating,
+        text: this.selectedReview.text,
       };
       axios
-        .put(`/reviews/${this.$route.params.id}`, params)
+        .put(`/reviews/${review}`, params)
         .then(response => {
           console.log("Review edited", response);
           // this.$router.push(`/professors/${this.reviews.professors_id}`);
