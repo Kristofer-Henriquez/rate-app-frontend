@@ -30,7 +30,7 @@
 
         <template #default="">
           <div>
-            <form v-on:submit.prevent="submit()">
+            <b-form v-on:submit.prevent="submit()">
               <ul>
                 <li class="text-danger" v-for="error in errors">{{ error }}</li>
               </ul>
@@ -49,13 +49,13 @@
                   max-rows="6"
                 ></b-form-textarea>
               </div>
-            </form>
+            </b-form>
           </div>
         </template>
 
         <template #modal-footer="{ ok, cancel, hide }">
           <div>
-            <b-button size="sm" variant="success" @click="ok(submit())">
+            <b-button size="sm" variant="primary" @click="ok(submit(selectedReview.id))">
               OK
             </b-button>
 
@@ -96,21 +96,16 @@ export default {
   created: function() {
     this.showProfessor();
   },
-  mounted() {
-    axios.get("/reviews/" + this.$route.params.id).then(response => {
-      console.log(response.data);
-      this.reviews = response.data;
-    });
-  },
+
   methods: {
-    submit: function() {
+    submit: function(review) {
       var params = {
         professors_id: this.reviews.professors_id,
         rating: this.reviews.rating,
         text: this.reviews.text,
       };
       axios
-        .put(`/reviews/${this.$route.params.id}`, params)
+        .put(`/reviews/${review}`, params)
         .then(response => {
           console.log("Review edited", response);
           // this.$router.push(`/professors/${this.reviews.professors_id}`);
