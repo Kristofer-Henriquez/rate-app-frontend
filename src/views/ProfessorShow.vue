@@ -77,6 +77,8 @@
 
 <script>
 import axios from "axios";
+
+// Numeral
 import Vue from "vue";
 var numeral = require("numeral");
 Vue.filter("formatNumber", function(value) {
@@ -96,13 +98,12 @@ export default {
   created: function() {
     this.showProfessor();
   },
-
   methods: {
     submit: function(review) {
       var params = {
-        professors_id: this.reviews.professors_id,
-        rating: this.reviews.rating,
-        text: this.reviews.text,
+        professors_id: this.selectedReview.professors_id,
+        rating: this.selectedReview.rating,
+        text: this.selectedReview.text,
       };
       axios
         .put(`/reviews/${review}`, params)
