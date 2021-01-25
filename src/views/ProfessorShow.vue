@@ -2,13 +2,14 @@
   <div v-if="professor" class="Professors-Show">
     <h1>This is the Show action for professors</h1>
     <h2>{{ professor.name }}</h2>
-    <h1>{{ averageRating(professor.reviews) | formatNumber }}</h1>
+    <h1 class="mt-2">{{ (averageValue = averageRating(professor.reviews)) }} / 5</h1>
+    <b-form-rating v-model="averageValue" variant="warning" class="mb-2" readonly></b-form-rating>
     <p>{{ professor.school }}</p>
     <p>{{ professor.title }}</p>
     <p>{{ professor.department }}</p>
 
     <b-button v-b-modal.modal-2 variant="primary" v-on:click="professor">Edit this professor!</b-button>
-    <b-button v-b-modal.modal-3 variant="primary" v-on:click="professor">Write Review!</b-button>
+    <b-button v-b-modal.modal-3 variant="primary">Write Review!</b-button>
 
     <!-- ProfessorEdit Model -->
     <div>
@@ -76,7 +77,7 @@
 
               <div class="form-group">
                 <label>rating:</label>
-                <input type="text" class="form-control" v-model="newReviewRating" />
+                <b-form-rating v-model="newReviewRating" variant="warning" class="mb-2"></b-form-rating>
               </div>
 
               <div class="form-group">
@@ -109,7 +110,8 @@
     <div v-for="review in professor.reviews">
       <b-card>
         <b-card-text>
-          <p>{{ review.rating }}</p>
+          <p>{{ review.rating }} / 5</p>
+          <b-form-rating v-model="review.rating" variant="warning" class="mb-3" readonly></b-form-rating>
           <p>{{ review.text }}</p>
         </b-card-text>
 
@@ -133,7 +135,7 @@
 
               <div class="form-group">
                 <label>rating:</label>
-                <input type="text" class="form-control" v-model="selectedReview.rating" />
+                <b-form-rating v-model="selectedReview.rating" variant="warning" class="mb-2"></b-form-rating>
               </div>
 
               <div class="form-group">
@@ -169,7 +171,11 @@
   </div>
 </template>
 
-<style></style>
+<style>
+.selector-for-some-widget {
+  box-sizing: border-box;
+}
+</style>
 
 <script>
 import axios from "axios";
@@ -184,6 +190,7 @@ Vue.filter("formatNumber", function(value) {
 export default {
   data: function() {
     return {
+      value: null,
       newReviewRating: "",
       newReviewText: "",
       errors: "",
