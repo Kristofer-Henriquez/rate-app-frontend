@@ -7,21 +7,117 @@
     <p>{{ professor.title }}</p>
     <p>{{ professor.department }}</p>
 
-    <a v-bind:href="`/professors/${professor.id}/edit`">Edit this professor!</a>
+    <b-button v-b-modal.modal-2 variant="primary" v-on:click="professor">Edit this professor!</b-button>
+    <b-button v-b-modal.modal-3 variant="primary" v-on:click="professor">Write Review!</b-button>
 
+    <!-- ProfessorEdit Model -->
     <div>
-      <a v-bind:href="`/professors/${professor.id}/reviewcreate`">Write Review!</a>
+      <b-modal id="modal-2" title="BootstrapVue">
+        <template #modal-header="">
+          <h1>Edit this Professor!</h1>
+        </template>
+
+        <template #default="">
+          <div>
+            <b-form v-on:submit.prevent="submitProfessor()">
+              <ul>
+                <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              </ul>
+
+              <div class="form-group">
+                <label>School:</label>
+                <input type="text" class="form-control" v-model="professor.school" />
+              </div>
+
+              <div class="form-group">
+                <label>Title:</label>
+                <input type="text" class="form-control" v-model="professor.title" />
+              </div>
+
+              <div class="form-group">
+                <label>Department:</label>
+                <input type="text" class="form-control" v-model="professor.department" />
+              </div>
+            </b-form>
+          </div>
+        </template>
+
+        <template #modal-footer="{ ok, cancel, hide }">
+          <div>
+            <b-button size="sm" variant="primary" @click="ok(submitProfessor(professor.id))">
+              OK
+            </b-button>
+
+            <b-button size="sm" @click="cancel()">
+              Cancel
+            </b-button>
+
+            <b-button size="sm" @click="hide(destroyProfessor())" variant="danger">
+              delete
+            </b-button>
+          </div>
+        </template>
+      </b-modal>
     </div>
 
-    <p><button v-on:click="destroyProfessor()">Delete this Professor</button></p>
+    <!-- New Review Model -->
+    <div>
+      <b-modal id="modal-3" title="BootstrapVue">
+        <template #modal-header="">
+          <h1>New Review!</h1>
+        </template>
+
+        <template #default="">
+          <div>
+            <b-form v-on:submit.prevent="createReview()">
+              <ul>
+                <li class="text-danger" v-for="error in errors">{{ error }}</li>
+              </ul>
+
+              <div class="form-group">
+                <label>rating:</label>
+                <input type="text" class="form-control" v-model="newReviewRating" />
+              </div>
+
+              <div class="form-group">
+                <b-form-textarea
+                  id="textarea"
+                  v-model="newReviewText"
+                  placeholder="Enter something..."
+                  rows="3"
+                  max-rows="6"
+                ></b-form-textarea>
+              </div>
+            </b-form>
+          </div>
+        </template>
+
+        <template #modal-footer="{ ok, cancel}">
+          <div>
+            <b-button size="sm" variant="primary" @click="ok(createReview())">
+              OK
+            </b-button>
+
+            <b-button size="sm" @click="cancel()">
+              Cancel
+            </b-button>
+          </div>
+        </template>
+      </b-modal>
+    </div>
 
     <div v-for="review in professor.reviews">
-      <p>{{ review.rating }}</p>
-      <p>{{ review.text }}</p>
+      <b-card>
+        <b-card-text>
+          <p>{{ review.rating }}</p>
+          <p>{{ review.text }}</p>
+        </b-card-text>
 
-      <b-button v-b-modal.modal-1 v-on:click="selectedReview = review">Edit review</b-button>
+        <b-button v-b-modal.modal-1 variant="primary" v-on:click="selectedReview = review">Edit review</b-button>
+      </b-card>
     </div>
 
+    <!-- ReviewEdit Model -->
     <div>
       <b-modal id="modal-1" title="BootstrapVue">
         <template #modal-header="">
@@ -30,7 +126,7 @@
 
         <template #default="">
           <div>
-            <b-form v-on:submit.prevent="submit()">
+            <b-form v-on:submit.prevent="submitReview()">
               <ul>
                 <li class="text-danger" v-for="error in errors">{{ error }}</li>
               </ul>
@@ -55,7 +151,7 @@
 
         <template #modal-footer="{ ok, cancel, hide }">
           <div>
-            <b-button size="sm" variant="primary" @click="ok(submit(selectedReview.id))">
+            <b-button size="sm" variant="primary" @click="ok(submitReview(selectedReview.id))">
               OK
             </b-button>
 
@@ -88,6 +184,8 @@ Vue.filter("formatNumber", function(value) {
 export default {
   data: function() {
     return {
+      newReviewRating: "",
+      newReviewText: "",
       errors: "",
       professor: null,
       text: "",
@@ -99,7 +197,23 @@ export default {
     this.showProfessor();
   },
   methods: {
-    submit: function(review) {
+    submitProfessor: function() {
+      var params = {
+        name: this.professor.name,
+        school: this.professor.school,
+        title: this.professor.title,
+        department: this.professor.department,
+      };
+      axios
+        .put(`/professors/${this.$route.params.id}`, params)
+        .then(response => {
+          this.$router.push(`/professors/${this.professor.id}`);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
+    },
+    submitReview: function(review) {
       var params = {
         professors_id: this.selectedReview.professors_id,
         rating: this.selectedReview.rating,
@@ -132,7 +246,7 @@ export default {
     createReview: function() {
       var params = {
         professors_id: this.professor.id,
-        rating: this.newReviewrating,
+        rating: this.newReviewRating,
         text: this.newReviewText,
       };
       axios
