@@ -5,7 +5,16 @@
     <h1>{{ professor.name }}</h1>
     <hr style="height:2px;border-width:0;width:50px;color:gray;background-color:white">
     <h1 class="mt-2">{{ (averageValue = averageRating(professor.reviews)) }} / 5</h1>
-    <b-form-rating v-model="averageValue" variant="warning" class="mb-2" readonly></b-form-rating>
+    <b-form-rating
+      v-model="averageValue"
+      variant="warning"
+      class="mb-2"
+      readonly
+      show-clear
+      no-border
+      style="background: #2c3e5000; width: 25em; margin-left: auto; margin-right: auto"
+      size="lg"
+    ></b-form-rating>
     <hr style="height:2px;border-width:0;width:50px;color:gray;background-color:white">
     <h1>{{ professor.school }}</h1>
     <h1>{{ professor.title }}</h1>
@@ -82,7 +91,7 @@
 
               <div class="form-group">
                 <label>rating:</label>
-                <b-form-rating v-model="newReviewRating" variant="warning" class="mb-2"></b-form-rating>
+                <b-form-rating v-model="newReviewRating" variant="warning" class="mb-2" no-border></b-form-rating>
               </div>
 
               <div class="form-group">
@@ -116,9 +125,9 @@
     <div class="col-sm-3" v-for="review in professor.reviews">
       <br>
       <b-card style="width: 20rem; height: auto; margin: 25px; border-color: orange; border-radius: 15px; border-width: 5px">
-        <b-card-text>
+        <b-card-text style="color: #080601f3;">
           <p>{{ review.rating }} / 5</p>
-          <b-form-rating v-model="review.rating" variant="warning" class="mb-3" readonly></b-form-rating>
+          <b-form-rating v-model="review.rating" variant="warning" class="mb-3" readonly no-border></b-form-rating>
           <p>{{ review.text }}</p>
         </b-card-text>
 
@@ -143,7 +152,7 @@
 
               <div class="form-group">
                 <label>rating:</label>
-                <b-form-rating v-model="selectedReview.rating" variant="warning" class="mb-2"></b-form-rating>
+                <b-form-rating v-model="selectedReview.rating" variant="warning" class="mb-2" no-border></b-form-rating>
               </div>
 
               <div class="form-group">
