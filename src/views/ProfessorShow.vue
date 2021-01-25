@@ -4,7 +4,7 @@
     <hr style="height:2px;border-width:0;color:gray;background-color:white">
     <h1>{{ professor.name }}</h1>
     <hr style="height:2px;border-width:0;width:50px;color:gray;background-color:white">
-    <h1 class="mt-2">{{ (averageValue = averageRating(professor.reviews)) }} / 5</h1>
+    <h1 class="mt-2">{{ (averageValue = averageRating(professor.reviews)) | formatNumber }} / 5</h1>
     <b-form-rating
       v-model="averageValue"
       variant="warning"
@@ -294,8 +294,10 @@ export default {
     },
     averageRating: function(reviews) {
       const totalRatings = reviews.reduce((acc, { rating }) => (acc += Number(rating)), 0);
-      const averageRating = totalRatings / this.professor.reviews.length;
-      return averageRating;
+      if (totalRatings) {
+        const averageRating = totalRatings / this.professor.reviews.length;
+        return averageRating;
+      }
     },
   },
 };
