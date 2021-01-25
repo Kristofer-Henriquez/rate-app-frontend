@@ -230,7 +230,6 @@ export default {
         .put(`/reviews/${review}`, params)
         .then(response => {
           console.log("Review edited", response);
-          // this.$router.push(`/professors/${this.reviews.professors_id}`);
         })
         .catch(error => {
           this.errors = error.response.data.errors;
