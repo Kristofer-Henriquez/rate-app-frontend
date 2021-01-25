@@ -3,7 +3,16 @@
     <h1>This is the Show action for professors</h1>
     <h2>{{ professor.name }}</h2>
     <h1 class="mt-2">{{ (averageValue = averageRating(professor.reviews)) }} / 5</h1>
-    <b-form-rating v-model="averageValue" variant="warning" class="mb-2" readonly></b-form-rating>
+    <b-form-rating
+      v-model="averageValue"
+      variant="warning"
+      class="mb-2"
+      readonly
+      show-clear
+      no-border
+      style="background: #2c3e5000; width: 25em; margin-left: auto; margin-right: auto"
+      size="lg"
+    ></b-form-rating>
     <p>{{ professor.school }}</p>
     <p>{{ professor.title }}</p>
     <p>{{ professor.department }}</p>
@@ -77,7 +86,7 @@
 
               <div class="form-group">
                 <label>rating:</label>
-                <b-form-rating v-model="newReviewRating" variant="warning" class="mb-2"></b-form-rating>
+                <b-form-rating v-model="newReviewRating" variant="warning" class="mb-2" no-border></b-form-rating>
               </div>
 
               <div class="form-group">
@@ -111,7 +120,7 @@
       <b-card>
         <b-card-text>
           <p>{{ review.rating }} / 5</p>
-          <b-form-rating v-model="review.rating" variant="warning" class="mb-3" readonly></b-form-rating>
+          <b-form-rating v-model="review.rating" variant="warning" class="mb-3" readonly no-border></b-form-rating>
           <p>{{ review.text }}</p>
         </b-card-text>
 
@@ -135,7 +144,7 @@
 
               <div class="form-group">
                 <label>rating:</label>
-                <b-form-rating v-model="selectedReview.rating" variant="warning" class="mb-2"></b-form-rating>
+                <b-form-rating v-model="selectedReview.rating" variant="warning" class="mb-2" no-border></b-form-rating>
               </div>
 
               <div class="form-group">
