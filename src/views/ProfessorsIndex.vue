@@ -23,6 +23,8 @@
 <script>
 import axios from "axios";
 import Vue from "vue";
+
+// numeral
 var numeral = require("numeral");
 Vue.filter("formatNumber", function (value) {
   return numeral(value).format("0.0");
