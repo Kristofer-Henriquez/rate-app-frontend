@@ -185,6 +185,8 @@
         </template>
       </b-modal>
     </div>
+    <br>
+    <br>
   </div>
 </template>
 
