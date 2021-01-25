@@ -1,7 +1,9 @@
 <template>
   <div v-if="professor" class="Professors-Show">
-    <h1>This is the Show action for professors</h1>
-    <h2>{{ professor.name }}</h2>
+    <h2>Want to add a review? Just click below!</h2>
+    <hr style="height:2px;border-width:0;color:gray;background-color:white">
+    <h1>{{ professor.name }}</h1>
+    <hr style="height:2px;border-width:0;width:50px;color:gray;background-color:white">
     <h1 class="mt-2">{{ (averageValue = averageRating(professor.reviews)) }} / 5</h1>
     <b-form-rating
       v-model="averageValue"
@@ -13,11 +15,14 @@
       style="background: #2c3e5000; width: 25em; margin-left: auto; margin-right: auto"
       size="lg"
     ></b-form-rating>
-    <p>{{ professor.school }}</p>
-    <p>{{ professor.title }}</p>
-    <p>{{ professor.department }}</p>
+    <hr style="height:2px;border-width:0;width:50px;color:gray;background-color:white">
+    <h1>{{ professor.school }}</h1>
+    <h1>{{ professor.title }}</h1>
+    <h1>{{ professor.department }}</h1>
 
     <b-button v-b-modal.modal-2 variant="primary" v-on:click="professor">Edit this professor!</b-button>
+    <br>
+    <br>
     <b-button v-b-modal.modal-3 variant="primary">Write Review!</b-button>
 
     <!-- ProfessorEdit Model -->
@@ -116,9 +121,11 @@
       </b-modal>
     </div>
 
-    <div v-for="review in professor.reviews">
-      <b-card>
-        <b-card-text>
+<div class="row">
+    <div class="col-sm-3" v-for="review in professor.reviews">
+      <br>
+      <b-card style="width: 20rem; height: auto; margin: 25px; border-color: orange; border-radius: 15px; border-width: 5px">
+        <b-card-text style="color: #080601f3;">
           <p>{{ review.rating }} / 5</p>
           <b-form-rating v-model="review.rating" variant="warning" class="mb-3" readonly no-border></b-form-rating>
           <p>{{ review.text }}</p>
@@ -127,6 +134,7 @@
         <b-button v-b-modal.modal-1 variant="primary" v-on:click="selectedReview = review">Edit review</b-button>
       </b-card>
     </div>
+  </div>
 
     <!-- ReviewEdit Model -->
     <div>
