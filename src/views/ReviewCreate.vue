@@ -44,6 +44,7 @@ export default {
         .then(response => {
           console.log(response.data);
           this.$router.push(`/professors/${this.$route.params.id}`);
+          
         })
         .catch(error => {
           console.log("Review create error", error.response);

@@ -253,7 +253,8 @@ export default {
         .post("/reviews/", params)
         .then(response => {
           console.log(response.data);
-          this.$router.push(`/professors/${this.$route.params.id}`);
+          // this.$router.push(`/professors/${this.$route.params.id}`);
+          location.reload();
         })
         .catch(error => {
           console.log("photos create error", error.response);
