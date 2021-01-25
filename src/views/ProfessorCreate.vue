@@ -51,7 +51,7 @@ export default {
           this.$router.push("/professors");
         })
         .catch(error => {
-          console.log("photos create error", error.response);
+          console.log("professor create error", error.response);
           this.errors = error.response.data.errors;
         });
     },
