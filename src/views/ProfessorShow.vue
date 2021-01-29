@@ -25,7 +25,7 @@
     <br>
     <b-button v-b-modal.modal-3 variant="primary">Write Review!</b-button>
 
-    <!-- ProfessorEdit Model -->
+    <!-- ProfessorEdit Modal -->
     <div>
       <b-modal id="modal-2" title="BootstrapVue">
         <template #modal-header="">
@@ -198,9 +198,10 @@
 
 <script>
 import axios from "axios";
+import Vue from "vue";
 
 // Numeral
-import Vue from "vue";
+
 var numeral = require("numeral");
 Vue.filter("formatNumber", function(value) {
   return numeral(value).format("0.0");
