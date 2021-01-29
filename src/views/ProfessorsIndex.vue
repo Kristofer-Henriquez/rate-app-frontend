@@ -1,6 +1,13 @@
 <template>
   <div class="Professors">
     <h1>The tables have turned!</h1>
+
+    <!-- sort button -->
+<!-- <button v-on:click="sortRatingshigh(); sortRatingslow();"> Sort by Rating!</button> -->
+<p> Sort by rating! </p>
+<button style="padding: 3px 3px; text-align: center; color: #42b983" @click="sortRatingshigh();">&uarr;</button> |
+<button style="padding: 3px 3px; text-align: center; color: #42b983" @click="sortRatingslow();">	&darr;</button>
+
     <div class="row">
       <div class="col-sm-3" v-for="professor in professors">
         <br />
@@ -51,6 +58,13 @@ export default {
         this.professors = response.data;
       });
     },
+    sortRatingshigh: function() {
+      var sortedProfessors = this.professors.sort((a, b) => parseFloat(b.avg) - parseFloat(a.avg));
+    },
+    sortRatingslow: function() {
+      var sortedProfessors = this.professors.sort((a, b) => parseFloat(a.avg) - parseFloat(b.avg));
+    },
+    
   },
 };
 </script>
