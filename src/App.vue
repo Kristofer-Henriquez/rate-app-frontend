@@ -7,6 +7,12 @@
       <router-link to="/professors" style="color: #f8ae0ff3; font-size:46px">All Professors</router-link>
       <div></div>
       <router-link to="/professorsNew" style="color: #f8ae0ff3; font-size:46px">New Professor</router-link>
+      <div></div>
+      <router-link to="/signup">Signup</router-link>
+      <div></div>
+      <router-link to="/login">Login</router-link>
+      <div></div>
+      <router-link to="/logout">Logout</router-link>
     </div>
     <router-view />
   </div>

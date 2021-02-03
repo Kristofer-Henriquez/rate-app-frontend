@@ -2,8 +2,7 @@
   <div class="Professors">
     <h1>The tables have turned!</h1>
 
-    <!-- sort button -->
-<!-- <button v-on:click="sortRatingshigh(); sortRatingslow();"> Sort by Rating!</button> -->
+    <!-- sort buttons -->
 <p> Sort by rating! </p>
 <button style="padding: 3px 3px; text-align: center; color: #42b983" @click="sortRatingshigh();">&uarr;</button> |
 <button style="padding: 3px 3px; text-align: center; color: #42b983" @click="sortRatingslow();">	&darr;</button>
