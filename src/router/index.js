@@ -6,9 +6,9 @@ import ProfessorEdit from '../views/ProfessorEdit.vue';
 import ProfessorCreate from '../views/ProfessorCreate.vue';
 import ReviewCreate from '../views/ReviewCreate.vue';
 import ReviewEdit from '../views/ReviewEdit.vue';
-import Signup from "../views/Signup.vue";
-import Login from "../views/Login.vue";
-import Logout from "../views/Logout.vue";
+// import Signup from "../views/Signup.vue";
+// import Login from "../views/Login.vue";
+// import Logout from "../views/Logout.vue";
 
 Vue.use(VueRouter);
 
@@ -43,18 +43,18 @@ const routes = [
     name: 'ReviewEdit',
     component: ReviewEdit,
   },
-  { path: "/signup", 
-    name: "signup", 
-    component: Signup 
-  },
-  { path: "/login", 
-    name: "login", 
-    component: Login 
-  },
-  { path: "/logout", 
-    name: "logout", 
-    component: Logout 
-  }
+  // { path: "/signup", 
+  //   name: "signup", 
+  //   component: Signup 
+  // },
+  // { path: "/login", 
+  //   name: "login", 
+  //   component: Login 
+  // },
+  // { path: "/logout", 
+  //   name: "logout", 
+  //   component: Logout 
+  // }
 ];
 
 const router = new VueRouter({
