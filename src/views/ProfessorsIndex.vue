@@ -57,13 +57,6 @@ export default {
         this.professors = response.data;
       });
     },
-    sortRatingshigh: function() {
-      var sortedProfessors = this.professors.sort((a, b) => parseFloat(b.avg) - parseFloat(a.avg));
-    },
-    sortRatingslow: function() {
-      var sortedProfessors = this.professors.sort((a, b) => parseFloat(a.avg) - parseFloat(b.avg));
-    },
-    
   },
 };
 </script>
