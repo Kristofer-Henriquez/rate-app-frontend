@@ -33,7 +33,7 @@ export default {
     };
   },
   mounted() {
-    axios.get("/reviews/" + this.$route.params.id).then(response => {
+    axios.get("/api/reviews/" + this.$route.params.id).then(response => {
       console.log(response.data);
       this.reviews = response.data;
     });
@@ -46,7 +46,7 @@ export default {
         text: this.reviews.text,
       };
       axios
-        .put(`/reviews/${this.$route.params.id}`, params)
+        .put(`/api/reviews/${this.$route.params.id}`, params)
         .then(response => {
           this.$router.push(`/professors/${this.reviews.professors_id}`);
         })

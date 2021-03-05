@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     indexProfessors: function() {
-      axios.get("/professors").then(response => {
+      axios.get("/api/professors").then(response => {
         console.log("professors index", response);
         this.professors = response.data;
       });

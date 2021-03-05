@@ -231,7 +231,7 @@ export default {
         department: this.professor.department,
       };
       axios
-        .put(`/professors/${this.$route.params.id}`, params)
+        .put(`/api/professors/${this.$route.params.id}`, params)
         .then(response => {
           this.$router.push(`/professors/${this.professor.id}`);
         })
@@ -246,7 +246,7 @@ export default {
         text: this.selectedReview.text,
       };
       axios
-        .put(`/reviews/${review}`, params)
+        .put(`/api/reviews/${review}`, params)
         .then(response => {
           console.log("Review edited", response);
         })
@@ -255,7 +255,7 @@ export default {
         });
     },
     showProfessor: function() {
-      axios.get("/professors/" + this.$route.params.id).then(response => {
+      axios.get("/api/professors/" + this.$route.params.id).then(response => {
         console.log("professor show", response);
         this.professor = response.data;
       });
@@ -263,7 +263,7 @@ export default {
     destroyProfessor: function() {
       console.log("deleting this professor");
 
-      axios.delete(`/professors/${this.$route.params.id}`).then(response => {
+      axios.delete(`/api/professors/${this.$route.params.id}`).then(response => {
         console.log(response.data);
         this.$router.push("/professors");
       });
@@ -275,7 +275,7 @@ export default {
         text: this.newReviewText,
       };
       axios
-        .post("/reviews/", params)
+        .post("/api/reviews/", params)
         .then(response => {
           console.log(response.data);
           // this.$router.push(`/professors/${this.$route.params.id}`);
@@ -289,7 +289,7 @@ export default {
     destroyReview: function(review) {
       console.log("deleting this review");
 
-      axios.delete(`/reviews/${review}`).then(response => {
+      axios.delete(`/api/reviews/${review}`).then(response => {
         console.log(response.data);
         location.reload();
       });

@@ -37,7 +37,7 @@ export default {
     };
   },
   mounted() {
-    axios.get("/professors/" + this.$route.params.id).then(response => {
+    axios.get("/api/professors/" + this.$route.params.id).then(response => {
       console.log(response.data);
       this.professor = response.data;
     });
@@ -51,7 +51,7 @@ export default {
         department: this.professor.department,
       };
       axios
-        .put(`/professors/${this.$route.params.id}`, params)
+        .put(`/api/professors/${this.$route.params.id}`, params)
         .then(response => {
           this.$router.push(`/professors/${this.professor.id}`);
         })

@@ -90,7 +90,7 @@ export default {
         department: this.newProfessorDepartment,
       };
       axios
-        .post("/professors/", params)
+        .post("/api/professors/", params)
         .then(response => {
           console.log(response.data);
           this.$router.push("/professors");

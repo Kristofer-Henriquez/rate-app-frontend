@@ -40,7 +40,7 @@ export default {
         text: this.newReviewText,
       };
       axios
-        .post("/reviews/", params)
+        .post("/api/reviews/", params)
         .then(response => {
           console.log(response.data);
           this.$router.push(`/professors/${this.$route.params.id}`);
